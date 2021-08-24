@@ -7,8 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SoulSister.Controllers
-{
+namespace SoulSister.Controllers {
     [ApiController]
     [Route("[controller]")]
     public class RecipeController : ControllerBase {

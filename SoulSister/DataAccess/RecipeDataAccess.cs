@@ -12,7 +12,7 @@ namespace SoulSister.DataAccess {
         static readonly string textFile = @"C:\Users\elisp\source\repos\SoulSister\SoulSister\Data\Recipes.txt";
 
         public RecipeDataAccess() {
-            if (File.Exists(textFile)) { 
+            if (File.Exists(textFile)) {
                 string text = File.ReadAllText(textFile);
                 this.Recipes = JsonConvert.DeserializeObject<IEnumerable<Recipe>>(text);
             }
