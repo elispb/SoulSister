@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SoulSister.DataAccess;
 using SoulSister.Models;
 using System;
 using System.Collections.Generic;
@@ -11,22 +12,16 @@ namespace SoulSister.Controllers
     [ApiController]
     [Route("[controller]")]
     public class RecipeController : ControllerBase {
-        List<Recipe> cannedData;
+        IEnumerable<Recipe> cannedData;
+        RecipeDataAccess dataAccess;
 
-        public RecipeController()
-        {
-            cannedData = new List<Recipe>() { new Recipe() {
-                Name = "Cheese on Toast",
-                Duration = new TimeSpan(0,10,0),
-                Ingredients = new List<Ingredient>(){ new Ingredient(){Name = "Bread" }, new Ingredient(){Name = "Cheese"} },
-                Method = "Grate Cheese\r\nLightly Toast bread\r\nPlace cheese on toast\r\nPlace cheese on toast under the grill for 5 mins until the cheese has melted"
-            } };
+        public RecipeController() {
+            this.dataAccess = new RecipeDataAccess();
         }
 
         [HttpGet]
-        public IEnumerable<Recipe> Get()
-        {
-            return this.cannedData;
+        public IEnumerable<Recipe> Get() {
+            return this.dataAccess.GetRecipes();
         }
     }
 }

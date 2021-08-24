@@ -6,9 +6,9 @@ namespace SoulSister.Models {
     {
         public string Name { get; set; }
 
-        public TimeSpan Duration { get; set; }
+        public string Duration { get; set; }
 
-        public List<Ingredient> Ingredients {get; set;}
+        public IEnumerable<Ingredient> Ingredients {get; set;}
 
         public string Method { get; set; }
     }
