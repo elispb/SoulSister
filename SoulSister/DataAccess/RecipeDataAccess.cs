@@ -7,9 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SoulSister.DataAccess {
-    public class RecipeDataAccess {
+    public class RecipeDataAccess: IRecipeDataAccess {
         private IEnumerable<Recipe> Recipes { get; }
-        static readonly string textFile = @"C:\Users\elisp\source\repos\SoulSister\SoulSister\Data\Recipes.txt";
+        static readonly string textFile = @"C:\Users\elisp\source\repos\SoulSister\SoulSister\Data\Recipes.json";
 
         public RecipeDataAccess() {
             if (File.Exists(textFile)) {

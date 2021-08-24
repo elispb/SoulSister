@@ -11,11 +11,10 @@ namespace SoulSister.Controllers {
     [ApiController]
     [Route("[controller]")]
     public class RecipeController : ControllerBase {
-        IEnumerable<Recipe> cannedData;
-        RecipeDataAccess dataAccess;
+        IRecipeDataAccess dataAccess;
 
-        public RecipeController() {
-            this.dataAccess = new RecipeDataAccess();
+        public RecipeController(IRecipeDataAccess dataAccess) {
+            this.dataAccess = dataAccess;
         }
 
         [HttpGet]
