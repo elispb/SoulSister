@@ -18,8 +18,8 @@ namespace SoulSister.DataAccess {
             }
         }
 
-        public Recipe GetRecipe() {
-            return this.Recipes.FirstOrDefault();
+        public Recipe GetRecipe(int id) {
+            return this.Recipes.FirstOrDefault(recipe => recipe.ID == id);
         }
 
         public IEnumerable<Recipe> GetRecipes() {

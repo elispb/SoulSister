@@ -18,8 +18,18 @@ namespace SoulSister.Controllers {
         }
 
         [HttpGet]
-        public IEnumerable<Recipe> Get() {
-            return this.dataAccess.GetRecipes();
+        public IActionResult Get() {
+            return  this.Ok(this.dataAccess.GetRecipes());
+        }
+
+        [HttpGet]
+        [Route("{recipeId}")]
+        public IActionResult Get(int recipeId) {
+            var result = this.dataAccess.GetRecipe(recipeId);
+
+            return result != null
+                ? this.Ok(result)
+                : this.NotFound($"No Recipe found with id {recipeId}");
         }
     }
 }
