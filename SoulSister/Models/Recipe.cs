@@ -8,6 +8,8 @@ namespace SoulSister.Models {
 
         public string Name { get; set; }
 
+        public int Serves { get; set; }
+
         public string Duration { get; set; }
 
         public IEnumerable<Ingredient> Ingredients { get; set; }

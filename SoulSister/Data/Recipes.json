@@ -1,30 +1,68 @@
 [
   {
     "id": "1",
-    "name": "Cheese on Toast",
+    "name": "Welsh Rabbit",
     "duration": "10 min",
+    "serves":  "2",
     "ingredients": [
       {
-        "name": "Bread"
+        "name": "250g Cheese"
       },
       {
-        "name": "Cheese"
+        "name": "30g Butter"
+      },
+      {
+        "name": "1 tablespoon Worcestershire sauce"
+      },
+      {
+        "name": "1 tablespoon english mustard"
+      },
+      {
+        "name": "2 tablespoons beer"
+      },
+      {
+        "name": "4 slices of toast"
       }
     ],
-    "method": "Grate Cheese\r\nLightly Toast bread\r\nPlace cheese on toast\r\nPlace cheese on toast under the grill for 5 mins until the cheese has melted"
+    "method": "Grate or crumble the cheese and mix into a rough past with the butter, Worcestershire sauce, mustart, and beer. Spread over the toast and grill for a minuite or so, till it singes in patches. If the toast is slightly charred at the edges even better.\r\n\r\nDifferent Rabbits\r\nChutney Rabbit\r\nInstead of butter, spread the toast under the cheese mixture with a thick layer of chutney. Tomato or apple chutney is particularly good sandwidched between toast and cheese.\r\n\r\nBacon and salami Rabbit\r\nStrips of bacon, grilled crisp or slices from a salami can be laid on the toast before pouring on the cheese mixture.\r\n\r\nPached Egg Rabbit\r\nA poaded egg lurking under the cheese, while being somewhat heavy on the cholesterol count, turns the snack into something altogether more substantial. Serve with crisp salad leaves such as frisee or chicory."
   },
   {
     "id": "2",
-    "name": "Cheese on Toast",
+    "name": "Beef in Beer",
+    "serves": "6",
     "duration": "10 min",
     "ingredients": [
       {
-        "name": "Bread"
+        "name": "900g Chuck steak in 5cm Squares"
       },
       {
-        "name": "Cheese"
+        "name": "1 tablespoon olive oil"
+      },
+      {
+        "name": "350g onions in quaters"
+      },
+      {
+        "name": "1 heaped tablespoon of flour"
+      },
+      {
+        "name": "425ml light ale"
+      },
+      {
+        "name": "1 teaspoon of thyme"
+      },
+      {
+        "name": "1 bay leaf"
+      },
+      {
+        "name": "1 fat garlic clove"
+      },
+      {
+        "name": "salt"
+      },
+      {
+        "name": "pepper"
       }
     ],
-    "method": "Grate Cheese\r\nLightly Toast bread\r\nPlace cheese on toast\r\nPlace cheese on toast under the grill for 5 mins until the cheese has melted"
+    "method": "Pre-heat the oven to 140c\r\nHeat the oil in a large flameproof casserole until sizzling hot then sear the meat in it - just a few pieces at a time - till they become dark mahognay all over. as the pieces brown, remove them to a plate, then add the onions to the casserole and, with the heat still high, toss them around until brown at the edges. Now return the meat to the casserole together with any juices. Add the flour, turn the heat down, using a wooden spoon stir it around to soak up all the juices. It will look rather stodgy and unattractive at this stage but that's quite normal.\r\n\r\nNext gradually stir in the light ale and whilst everything slowly comes up to simmering point, add the thyme, bay leaf, crushed garlic, and some salt and pepper.\r\n\r\nAs soon as it begins to simmer, stir thouroughly, put on a tight fitting lid and transfer to the middle shelf on the oven.\r\n\r\nCook at a gental simmer for 2.5 hours. Don't take the lid off and have a tast halfway through because early on, the beer hasn't had time to develop into a delicious sauce; the beautiful aroma will make you very hungry, but please leave it alone!\r\n\r\nServe with giant crutons on top and with mashed potatoes and red cabbage."
   }
 ]
