@@ -3,19 +3,64 @@ using SoulSisterSite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SoulSisterSite.Controllers {
     public class RecipeController : Controller {
         public ActionResult Index() {
-            //TODO get all recipes from api
-            return View(new List<Recipe>() { new Recipe() { Name = "Test Recipe" }, new Recipe() { Name = "Test Recipe 2" } });
+            IEnumerable<Recipe> recipes = null;
+
+            using (var client = new HttpClient()) {
+                client.BaseAddress = new Uri("https://localhost:44370/");
+
+                var responseTask = client.GetAsync("recipe");
+                responseTask.Wait();
+                
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode) {
+                    var readTask = result.Content.ReadAsAsync<IEnumerable<Recipe>>();
+                    readTask.Wait();
+
+                    recipes = readTask.Result;
+                }
+                else //web api sent error response 
+                {
+                    //log response status here..
+
+                    recipes = Enumerable.Empty<Recipe>();
+
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+                }
+            }
+
+            return View(recipes);
         }
         public ActionResult Recipe(int id) {
-            ViewBag.RecipeId = id;
+            Recipe recipe = null;
 
-            //TODO query api for recipe of given ID
-            return View(new Recipe() { Name = "Test Recipe" });
+            using (var client = new HttpClient()) {
+                client.BaseAddress = new Uri("https://localhost:44370/");
+
+                var responseTask = client.GetAsync($"recipe/{id}");
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode) {
+                    var readTask = result.Content.ReadAsAsync<Recipe>();
+                    readTask.Wait();
+
+                    recipe = readTask.Result;
+                }
+                else //web api sent error response 
+                {
+                    //log response status here..
+
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+                }
+            }
+
+            return View(recipe);
         }
     }
 }

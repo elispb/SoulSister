@@ -7,6 +7,6 @@
 
 <ul>
     @foreach (var recipe in Model) {
-        <li>@recipe.Name</li>
+    <li><a class="nav-link text-dark" asp-area="" asp-controller="Recipe" asp-action="Recipe" asp-route-id="@recipe.ID">@recipe.Name</a></li>
     }
 </ul>
