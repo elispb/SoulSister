@@ -13,6 +13,8 @@ namespace SoulSister.Models {
         public string Duration { get; set; }
 
         public IEnumerable<Ingredient> Ingredients { get; set; }
+        
+        public IEnumerable<Allergen> Allergens { get; set; }
 
         public string Method { get; set; }
     }

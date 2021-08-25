@@ -4,10 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SoulSister.Models {
-    public class Ingredient {
-        public string? Quantity { get; set; }
-        public string? unit { get; set; }
-        public string? Descriptor { get; set; }
+    public class Allergen {
         public string Name { get; set; }
     }
 }
