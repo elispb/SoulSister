@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulSister", "SoulSister\SoulSister.csproj", "{141A8E5C-D1A3-4228-979B-4F6BC7522875}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoulSister", "SoulSister\SoulSister.csproj", "{141A8E5C-D1A3-4228-979B-4F6BC7522875}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoulSisterSite", "SoulSisterSite\SoulSisterSite.csproj", "{B5900DEB-D34C-4112-B252-C2841B4C11D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{141A8E5C-D1A3-4228-979B-4F6BC7522875}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{141A8E5C-D1A3-4228-979B-4F6BC7522875}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{141A8E5C-D1A3-4228-979B-4F6BC7522875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5900DEB-D34C-4112-B252-C2841B4C11D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5900DEB-D34C-4112-B252-C2841B4C11D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5900DEB-D34C-4112-B252-C2841B4C11D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5900DEB-D34C-4112-B252-C2841B4C11D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

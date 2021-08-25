@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Recipe>
+@{
+    ViewBag.Title = "Recipe";
+}
+
+<h2>Recipe Index</h2>
+
+<ul>
+    @foreach (var recipe in Model) {
+        <li>@recipe.Name</li>
+    }
+</ul>
