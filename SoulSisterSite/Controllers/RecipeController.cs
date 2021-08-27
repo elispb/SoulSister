@@ -8,9 +8,9 @@ using System.Linq;
 using System.Net.Http;
 
 namespace SoulSisterSite.Controllers {
-    public class HomeController : Controller {
+    public class RecipeController : Controller {
 
-        public HomeController() {
+        public RecipeController() {
         }
 
         public IActionResult Index() {
@@ -41,7 +41,7 @@ namespace SoulSisterSite.Controllers {
 
             return View(recipes);
         }
-        public IActionResult Recipe(int id) {
+        public IActionResult ViewRecipe(int id) {
             Recipe recipe = null;
 
             using (var client = new HttpClient()) {
@@ -68,7 +68,7 @@ namespace SoulSisterSite.Controllers {
             return View(recipe);
         }
 
-        public IActionResult Privacy() {
+        public IActionResult AddRecipe() {
             return View();
         }
 

@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Home\Recipe.cshtml">
+    <Content Update="Views\Recipe\ViewRecipe.cshtml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
