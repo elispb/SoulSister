@@ -9,13 +9,11 @@ using System.Net.Http;
 
 namespace SoulSisterSite.Controllers {
     public class HomeController : Controller {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger) {
-            _logger = logger;
+        public HomeController() {
         }
 
-        public ActionResult Index() {
+        public IActionResult Index() {
             IEnumerable<Recipe> recipes = null;
 
             using (var client = new HttpClient()) {
@@ -43,7 +41,7 @@ namespace SoulSisterSite.Controllers {
 
             return View(recipes);
         }
-        public ActionResult Recipe(int id) {
+        public IActionResult Recipe(int id) {
             Recipe recipe = null;
 
             using (var client = new HttpClient()) {
@@ -69,7 +67,12 @@ namespace SoulSisterSite.Controllers {
 
             return View(recipe);
         }
+
         public IActionResult Privacy() {
+            return View();
+        }
+
+        public IActionResult Test() {
             return View();
         }
 
