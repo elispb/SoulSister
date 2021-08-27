@@ -17,7 +17,7 @@ namespace SoulSisterSite.Controllers {
             IEnumerable<Recipe> recipes = null;
 
             using (var client = new HttpClient()) {
-                client.BaseAddress = new Uri("https://localhost:44370/");
+                client.BaseAddress = new Uri("https://reciperecommenderapi.azurewebsites.net/");
 
                 var responseTask = client.GetAsync("recipe");
                 responseTask.Wait();
