@@ -4,16 +4,20 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace SoulSister.DataAccess {
     public class RecipeDataAccess: IRecipeDataAccess {
         private IEnumerable<Recipe> Recipes { get; }
-        static readonly string textFile = @"C:\Users\elisp\source\repos\SoulSister\SoulSister\Data\Recipes.json";
 
         public RecipeDataAccess() {
-            if (File.Exists(textFile)) {
-                string text = File.ReadAllText(textFile);
+
+            string currentDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string datafile = Path.Combine(currentDirectory, @"Data\Recipes.json");
+
+            if (File.Exists(datafile)) {
+                string text = File.ReadAllText(datafile);
                 this.Recipes = JsonConvert.DeserializeObject<IEnumerable<Recipe>>(text);
             }
         }
