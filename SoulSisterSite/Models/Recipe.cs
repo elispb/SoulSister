@@ -4,6 +4,10 @@ using System.Collections.Generic;
 namespace SoulSisterSite.Models {
     public class Recipe {
 
+        public Recipe() {
+            this.Ingredients = new List<Ingredient>();
+        }
+
         public int ID { get; set; }
 
         public string Name { get; set; }

@@ -41,7 +41,7 @@ namespace SoulSisterSite.Controllers {
 
             return View(recipes);
         }
-        public IActionResult ViewRecipe(int id) {
+        public IActionResult View(int id) {
             Recipe recipe = null;
 
             using (var client = new HttpClient()) {
@@ -68,12 +68,19 @@ namespace SoulSisterSite.Controllers {
             return View(recipe);
         }
 
-        public IActionResult AddRecipe() {
+        public IActionResult Create() {
             return View();
         }
 
-        public IActionResult Test() {
-            return View();
+        [HttpPost]
+        public IActionResult Create(Recipe recipe) {
+            return View(recipe);
+        }
+
+        [HttpPost]
+        public IActionResult AddIngredient(Recipe recipe) {
+            recipe.Ingredients.ToList().Add(new Ingredient());
+            return PartialView("Ingredient", recipe);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

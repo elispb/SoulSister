@@ -1,0 +1,73 @@
+﻿@model SoulSisterSite.Models.Recipe
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+<h4>Recipe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ID" class="control-label"></label>
+                <input asp-for="ID" class="form-control" />
+                <span asp-validation-for="ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Serves" class="control-label"></label>
+                <input asp-for="Serves" class="form-control" />
+                <span asp-validation-for="Serves" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="ingredientsContainer">
+                @Html.EditorForModel("Ingredient")
+            </div>
+            <div>
+                <input class=" btn btn-default" type="button" id="btnAdd" value="Add Ingredient" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Method" class="control-label"></label>
+                <input asp-for="Method" class="form-control" />
+                <span asp-validation-for="Method" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $("#btnAdd").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize,
+                type: "POST",
+                url: '/Recipe/AddIngredient',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#ingredientsContainer').html(partialView);
+                }
+            })
+        })
+    </script>
+}
