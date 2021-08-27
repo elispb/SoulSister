@@ -3,10 +3,10 @@
     ViewBag.Title = "Recipe";
 }
 
-<h2>Recipe Index</h2>
+<h2>Recipes</h2>
 
 <ul>
     @foreach (var recipe in Model) {
-        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Recipe" asp-route-id="@recipe.ID">@recipe.Name</a></li>
+        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Recipe" asp-route-id="@recipe.ID"><b>@recipe.Name</b> Serves: @recipe.Serves Takes: @recipe.Duration</a></li>
     }
 </ul>

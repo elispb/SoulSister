@@ -3,7 +3,7 @@
     ViewBag.Title = "Welcome";
 }
 
-<h2>Recipe name is @Model?.Name</h2>
+<h2>@Model?.Name</h2>
 <p>Serves @Model?.Serves Takes @Model?.Duration</p>
 
 <h4>Ingredients</h4>
@@ -16,4 +16,4 @@
 </ul>
 
 <h4>Method</h4>
-<p>@Model?.Method</p>
+<p><span style="white-space: pre-line">Model?.Method</span></p>
