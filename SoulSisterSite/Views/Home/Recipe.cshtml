@@ -4,10 +4,16 @@
 }
 
 <h2>Recipe name is @Model?.Name</h2>
+<p>Serves @Model?.Serves Takes @Model?.Duration</p>
 
 <h4>Ingredients</h4>
 <ul>
-    @foreach (var ingredient in Model?.Ingredients) {
-    <li>@ingredient?.Quantity@ingredient?.Unit @ingredient?.Descriptor @ingredient.Name</li>
+    @if (Model.Ingredients.Any()){
+        @foreach (var ingredient in Model?.Ingredients) {
+            <li>@ingredient?.Quantity@ingredient?.Unit @ingredient?.Descriptor @ingredient.Name</li>
+        }
     }
 </ul>
+
+<h4>Method</h4>
+<p>@Model?.Method</p>
