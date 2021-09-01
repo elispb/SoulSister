@@ -78,9 +78,9 @@ namespace SoulSisterSite.Controllers {
         }
 
         [HttpPost]
-        public IActionResult AddIngredient(Recipe recipe) {
-            recipe.Ingredients.ToList().Add(new Ingredient());
-            return PartialView("Ingredient", recipe);
+        public IActionResult AddIngredient([Bind("Ingredients")] Recipe recipe) {
+            recipe.Ingredients.Add(new Ingredient());
+            return PartialView("Ingredient", recipe.Ingredients.Last());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
