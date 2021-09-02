@@ -69,18 +69,12 @@ namespace SoulSisterSite.Controllers {
         }
 
         public IActionResult Create() {
-            return View();
+            return View(new Recipe());
         }
 
         [HttpPost]
         public IActionResult Create(Recipe recipe) {
             return View(recipe);
-        }
-
-        [HttpPost]
-        public IActionResult AddIngredient([Bind("Ingredients")] Recipe recipe) {
-            recipe.Ingredients.Add(new Ingredient());
-            return PartialView("Ingredient", recipe.Ingredients.Last());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
