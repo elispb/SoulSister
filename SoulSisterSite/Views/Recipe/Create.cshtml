@@ -11,59 +11,10 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" id="form">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ID" class="control-label"></label>
-                <input asp-for="ID" class="form-control" />
-                <span asp-validation-for="ID" class="text-danger"></span>
+            <div>
+                <input type="text" name="recipe"/>
             </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Serves" class="control-label"></label>
-                <input asp-for="Serves" class="form-control" />
-                <span asp-validation-for="Serves" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Duration" class="control-label"></label>
-                <input asp-for="Duration" class="form-control" />
-                <span asp-validation-for="Duration" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ingredients" class="control-label"></label>
-                <p>
-                    @Html.ActionLink("Ingredient","Create", "Ingredient" ,Model)
-                </p>
-                @foreach (var item in Model?.Ingredients) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Unit)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descriptor)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @*@Html.ActionLink("Edit", "Edit", new { id=item.StudentId }) |*@
-                        @*@Html.ActionLink("Details", "Details", new { id=item.StudentId  }) |*@
-                        @*@Html.ActionLink("Delete", "Delete", new { id = item.StudentId })*@
-                    </td>
-                </tr>
-                }
-            </div>
-            <div class="form-group">
-                <label asp-for="Method" class="control-label"></label>
-                <input asp-for="Method" class="form-control" />
-                <span asp-validation-for="Method" class="text-danger"></span>
-            </div>
+            <br/>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

@@ -1,23 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using SoulSisterSite.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 
 namespace SoulSisterSite.Controllers {
     public class RecipeController : Controller {
 
-        public RecipeController() {
+        private Uri BaseUri { get; }
+
+        public RecipeController(IConfiguration configuration) {
+            BaseUri = new Uri(configuration.GetSection("ApiBaseUri").Value);
         }
 
         public IActionResult Index() {
             IEnumerable<Recipe> recipes = null;
 
             using (var client = new HttpClient()) {
-                client.BaseAddress = new Uri("https://reciperecommenderapi.azurewebsites.net/");
+                client.BaseAddress = BaseUri;
 
                 var responseTask = client.GetAsync("recipe");
                 responseTask.Wait();
@@ -45,7 +51,7 @@ namespace SoulSisterSite.Controllers {
             Recipe recipe = null;
 
             using (var client = new HttpClient()) {
-                client.BaseAddress = new Uri("https://reciperecommenderapi.azurewebsites.net/");
+                client.BaseAddress = BaseUri;
 
                 var responseTask = client.GetAsync($"recipe/{id}");
                 responseTask.Wait();
@@ -73,8 +79,35 @@ namespace SoulSisterSite.Controllers {
         }
 
         [HttpPost]
-        public IActionResult Create(Recipe recipe) {
-            return View(recipe);
+        public IActionResult Create(string recipe) {
+            var canSerialise = JsonConvert.DeserializeObject<Recipe>(recipe);
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = BaseUri;
+
+                var content = new StringContent(recipe, UnicodeEncoding.UTF8, "application/json");
+
+                var responseTask = client.PostAsync($"recipe/", content);
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<int>();
+                    readTask.Wait();
+
+                    canSerialise.ID = readTask.Result;
+                }
+                else //web api sent error response 
+                {
+                    //log response status here..
+
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+                }
+            }
+
+            return View(canSerialise);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

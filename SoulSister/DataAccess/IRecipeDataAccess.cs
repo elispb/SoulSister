@@ -8,5 +8,6 @@ namespace SoulSister.DataAccess {
     public interface IRecipeDataAccess {
         IEnumerable<Recipe> GetRecipes();
         Recipe GetRecipe(int id);
+        int CreateRecipe(Recipe recipe);
     }
 }

@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 namespace SoulSister.DataAccess {
     public class RecipeDataAccess: IRecipeDataAccess {
         private IEnumerable<Recipe> Recipes { get; }
+        private string datafile { get; }
 
         public RecipeDataAccess() {
 
             string currentDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            string datafile = Path.Combine(currentDirectory, @"Data\Recipes.json");
+            datafile = Path.Combine(currentDirectory, @"Data\Recipes.json");
 
             if (File.Exists(datafile)) {
                 string text = File.ReadAllText(datafile);
@@ -28,6 +29,18 @@ namespace SoulSister.DataAccess {
 
         public IEnumerable<Recipe> GetRecipes() {
             return this.Recipes;
+        }
+
+        public int CreateRecipe(Recipe recipe)
+        {
+            var last = this.Recipes.ToList().LastOrDefault();
+            if(last != null)
+            {
+                recipe.ID = last.ID + 1;
+                this.Recipes.ToList().Add(recipe);
+                File.WriteAllText(datafile, JsonConvert.SerializeObject(this.Recipes));
+            }
+            return (int)last.ID + 1;
         }
     }
 }

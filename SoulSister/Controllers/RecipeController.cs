@@ -24,12 +24,19 @@ namespace SoulSister.Controllers {
 
         [HttpGet]
         [Route("{recipeId}")]
-        public IActionResult Get(int recipeId) {
+        public IActionResult Get(int recipeId)
+        {
             var result = this.dataAccess.GetRecipe(recipeId);
 
             return result != null
                 ? this.Ok(result)
                 : this.NotFound($"No Recipe found with id {recipeId}");
+        }
+
+        [HttpPost]
+        public IActionResult Create(Recipe recipe)
+        {
+            return Ok(this.dataAccess.CreateRecipe(recipe));
         }
     }
 }
