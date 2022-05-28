@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using SoulSister.DataAccess;
 using SoulSister.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SoulSister.Controllers {
@@ -34,9 +36,10 @@ namespace SoulSister.Controllers {
         }
 
         [HttpPost]
-        public IActionResult Create(Recipe recipe)
+        public IActionResult Create([FromBody] JsonElement recipe)
         {
-            return Ok(this.dataAccess.CreateRecipe(recipe));
+            var v = JsonConvert.DeserializeObject<Recipe>(recipe.ToString());
+            return Ok(this.dataAccess.CreateRecipe(v));
         }
     }
 }

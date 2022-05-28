@@ -47,6 +47,7 @@ namespace SoulSisterSite.Controllers {
 
             return View(recipes);
         }
+
         public IActionResult View(int id) {
             Recipe recipe = null;
 
@@ -79,17 +80,15 @@ namespace SoulSisterSite.Controllers {
         }
 
         [HttpPost]
-        public IActionResult Create(string recipe) {
-            var canSerialise = JsonConvert.DeserializeObject<Recipe>(recipe);
+        public IActionResult Create(string Recipe) {
+            var canSerialise = JsonConvert.DeserializeObject<Recipe>(Recipe);
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = BaseUri;
-
-                var content = new StringContent(recipe, UnicodeEncoding.UTF8, "application/json");
-
+                var content = new StringContent(Recipe, UnicodeEncoding.UTF8, "application/json");
                 var responseTask = client.PostAsync($"recipe/", content);
-                responseTask.Wait();
+                responseTask.Wait(); 
 
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
@@ -107,7 +106,7 @@ namespace SoulSisterSite.Controllers {
                 }
             }
 
-            return View(canSerialise);
+            return View("View", canSerialise);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

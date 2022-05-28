@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SoulSister.DataAccess {
     public class RecipeDataAccess: IRecipeDataAccess {
-        private IEnumerable<Recipe> Recipes { get; }
+        private List<Recipe> Recipes { get; }
         private string datafile { get; }
 
         public RecipeDataAccess() {
@@ -19,7 +19,7 @@ namespace SoulSister.DataAccess {
 
             if (File.Exists(datafile)) {
                 string text = File.ReadAllText(datafile);
-                this.Recipes = JsonConvert.DeserializeObject<IEnumerable<Recipe>>(text);
+                this.Recipes = JsonConvert.DeserializeObject<List<Recipe>>(text);
             }
         }
 
@@ -37,7 +37,7 @@ namespace SoulSister.DataAccess {
             if(last != null)
             {
                 recipe.ID = last.ID + 1;
-                this.Recipes.ToList().Add(recipe);
+                this.Recipes.Add(recipe);
                 File.WriteAllText(datafile, JsonConvert.SerializeObject(this.Recipes));
             }
             return (int)last.ID + 1;
