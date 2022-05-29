@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -6,6 +7,7 @@ using SoulSisterSite.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -75,8 +77,9 @@ namespace SoulSisterSite.Controllers {
             return View(recipe);
         }
 
-        public IActionResult Create() {
-            return View(new Recipe());
+        public IActionResult Create()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -107,6 +110,36 @@ namespace SoulSisterSite.Controllers {
             }
 
             return View("View", canSerialise);
+        }
+
+        public IActionResult Upload()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Upload(IFormFile recipe)
+        {
+            if(recipe == null)
+            {
+                return BadRequest("Please browse to select a file");
+            }
+             string[] mimeTypes = new[] { "image/jpeg", "image/png", "application/pdf", "image/tiff" };
+            if (mimeTypes.Contains(recipe.ContentType))
+            {
+                // Yay.
+                //TODO upload to api
+                return View("Success", new Success { Message = "File Uploaded" });
+            }
+            else
+            {
+                return BadRequest("File must be of type: png, jpeg, tiff, pdf");
+            }
+        }
+
+        public IActionResult Success()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
