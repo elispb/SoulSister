@@ -4,23 +4,17 @@
     ViewData["Title"] = "View";
 }
 
-<h1>View</h1>
-
-<h4>Recipe</h4>
+<h1>Add Recipe</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" id="form">
-            <div>
-                <input type="text" name="recipe"/>
-            </div>
-            <br/>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Create" id="form">
+    <div>
+        <textarea type="text" name="recipe" style="width:100%; min-height:200px"> </textarea>
     </div>
-</div>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>
