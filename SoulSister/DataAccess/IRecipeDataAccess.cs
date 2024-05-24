@@ -1,4 +1,5 @@
-﻿using SoulSister.Models;
+﻿using Microsoft.AspNetCore.Http;
+using SoulSister.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace SoulSister.DataAccess {
         IEnumerable<Recipe> GetRecipes();
         Recipe GetRecipe(int id);
         int CreateRecipe(Recipe recipe);
+        Task<bool> SaveRawRecipe(IFormFile file);
     }
 }

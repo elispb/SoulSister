@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using SoulSister.Models;
 using System;
 using System.Collections.Generic;
@@ -7,40 +8,56 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace SoulSister.DataAccess {
-    public class RecipeDataAccess: IRecipeDataAccess {
-        private List<Recipe> Recipes { get; }
-        private string datafile { get; }
+namespace SoulSister.DataAccess
+{
+    public class RecipeDataAccess : IRecipeDataAccess
+    {
+        private List<Recipe> Recipes { get; init; }
+        private string Datafile { get; init; }
+        private string CurrentDir { get; init; }
 
-        public RecipeDataAccess() {
+        public RecipeDataAccess()
+        {
 
-            string currentDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            datafile = Path.Combine(currentDirectory, @"Data\Recipes.json");
+            CurrentDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            Datafile = Path.Combine(CurrentDir, @"Data\Recipes.json");
 
-            if (File.Exists(datafile)) {
-                string text = File.ReadAllText(datafile);
-                this.Recipes = JsonConvert.DeserializeObject<List<Recipe>>(text);
+            if (File.Exists(Datafile))
+            {
+                string text = File.ReadAllText(Datafile);
+                Recipes = JsonConvert.DeserializeObject<List<Recipe>>(text);
             }
         }
 
-        public Recipe GetRecipe(int id) {
+        public Recipe GetRecipe(int id)
+        {
             return this.Recipes.FirstOrDefault(recipe => recipe.ID == id);
         }
 
-        public IEnumerable<Recipe> GetRecipes() {
+        public IEnumerable<Recipe> GetRecipes()
+        {
             return this.Recipes;
         }
 
         public int CreateRecipe(Recipe recipe)
         {
             var last = this.Recipes.ToList().LastOrDefault();
-            if(last != null)
+            if (last != null)
             {
                 recipe.ID = last.ID + 1;
                 this.Recipes.Add(recipe);
-                File.WriteAllText(datafile, JsonConvert.SerializeObject(this.Recipes));
+                File.WriteAllText(Datafile, JsonConvert.SerializeObject(this.Recipes));
             }
             return (int)last.ID + 1;
+        }
+
+        public async Task<bool> SaveRawRecipe(IFormFile file)
+        {
+            var filePath = Path.Combine(CurrentDir, @"Data\Temp", file.FileName);
+            using Stream fileStream = new FileStream(filePath, FileMode.Create);
+            await file.CopyToAsync(fileStream);
+
+            return true;
         }
     }
 }

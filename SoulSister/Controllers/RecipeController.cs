@@ -1,23 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SoulSister.DataAccess;
 using SoulSister.Models;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace SoulSister.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class RecipeController : ControllerBase {
+public class RecipeController : ControllerBase
+{
     IRecipeDataAccess dataAccess;
 
-    public RecipeController(IRecipeDataAccess dataAccess) {
+    public RecipeController(IRecipeDataAccess dataAccess)
+    {
         this.dataAccess = dataAccess;
     }
 
     [HttpGet]
-    public IActionResult Get() {
-        return  this.Ok(this.dataAccess.GetRecipes());
+    public IActionResult Get()
+    {
+        return this.Ok(this.dataAccess.GetRecipes());
     }
 
     [HttpGet]
@@ -36,5 +41,15 @@ public class RecipeController : ControllerBase {
     {
         var v = JsonConvert.DeserializeObject<Recipe>(recipe.ToString());
         return Ok(this.dataAccess.CreateRecipe(v));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Upload([FromBody] IFormFile recipeFile)
+    {
+        if (await dataAccess.SaveRawRecipe(recipeFile))
+        {            
+            return Ok();
+        }
+        return new StatusCodeResult(500);
     }
 }
