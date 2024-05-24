@@ -49,7 +49,7 @@ public class RecipeController : ControllerBase
 
     [HttpPost]
     [Route("Upload")]
-    public async Task<IActionResult> Upload([FromForm] IFormFile recipeFile)
+    public async Task<IActionResult> Upload(IFormFile recipeFile)
     {        
         return Ok(_recipeReadingService.RecipeImageToRecipe(recipeFile));
     }

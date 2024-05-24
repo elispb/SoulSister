@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -135,9 +136,9 @@ public class RecipeController : Controller {
 
             using var streamContent = new StreamContent(recipe.OpenReadStream());
 
-            streamContent.Headers.ContentType = MediaTypeHeaderValue.Parse(recipe.ContentType);
-            streamContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
+            //streamContent.Headers.ContentType = MediaTypeHeaderValue.Parse(recipe.ContentType);
             content.Add(streamContent, "file", recipe.FileName);
+            content.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
 
             var response = await client.PostAsync("recipe/upload", content);
 
