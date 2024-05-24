@@ -6,9 +6,12 @@ using SoulSisterSite.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SoulSisterSite.Controllers;
 
@@ -117,7 +120,7 @@ public class RecipeController : Controller {
     }
 
     [HttpPost]
-    public IActionResult Upload(IFormFile recipe)
+    public async Task<IActionResult> Upload(IFormFile recipe)
     {
         if(recipe == null)
         {
@@ -126,8 +129,18 @@ public class RecipeController : Controller {
          string[] mimeTypes = new[] { "image/jpeg", "image/png", "application/pdf", "image/tiff" };
         if (mimeTypes.Contains(recipe.ContentType))
         {
-            // Yay.
-            //TODO upload to api
+            using var client = new HttpClient();
+            client.BaseAddress = BaseUri;
+            var content = new MultipartFormDataContent();
+
+            using var streamContent = new StreamContent(recipe.OpenReadStream());
+
+            streamContent.Headers.ContentType = MediaTypeHeaderValue.Parse(recipe.ContentType);
+            streamContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
+            content.Add(streamContent, "file", recipe.FileName);
+
+            var response = await client.PostAsync("recipe/upload", content);
+
             return View("Success", new Success { Message = "File Uploaded" });
         }
         else

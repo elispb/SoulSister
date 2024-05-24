@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SoulSister.DataAccess;
 using SoulSister.Models;
+using SoulSister.Services;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -12,24 +13,27 @@ namespace SoulSister.Controllers;
 [Route("[controller]")]
 public class RecipeController : ControllerBase
 {
-    IRecipeDataAccess dataAccess;
+    IRecipeDataAccess _dataAccess;
+    IRecipeReadingService _recipeReadingService;
 
-    public RecipeController(IRecipeDataAccess dataAccess)
+    public RecipeController(IRecipeDataAccess dataAccess, IRecipeReadingService recipeReadingService)
     {
-        this.dataAccess = dataAccess;
+        _dataAccess = dataAccess;
+        _recipeReadingService = recipeReadingService;
+
     }
 
     [HttpGet]
     public IActionResult Get()
     {
-        return this.Ok(this.dataAccess.GetRecipes());
+        return this.Ok(this._dataAccess.GetRecipes());
     }
 
     [HttpGet]
     [Route("{recipeId}")]
     public IActionResult Get(int recipeId)
     {
-        var result = this.dataAccess.GetRecipe(recipeId);
+        var result = this._dataAccess.GetRecipe(recipeId);
 
         return result != null
             ? this.Ok(result)
@@ -40,16 +44,13 @@ public class RecipeController : ControllerBase
     public IActionResult Create([FromBody] JsonElement recipe)
     {
         var v = JsonConvert.DeserializeObject<Recipe>(recipe.ToString());
-        return Ok(this.dataAccess.CreateRecipe(v));
+        return Ok(this._dataAccess.CreateRecipe(v));
     }
 
     [HttpPost]
-    public async Task<IActionResult> Upload([FromBody] IFormFile recipeFile)
-    {
-        if (await dataAccess.SaveRawRecipe(recipeFile))
-        {            
-            return Ok();
-        }
-        return new StatusCodeResult(500);
+    [Route("Upload")]
+    public async Task<IActionResult> Upload([FromForm] IFormFile recipeFile)
+    {        
+        return Ok(_recipeReadingService.RecipeImageToRecipe(recipeFile));
     }
 }
